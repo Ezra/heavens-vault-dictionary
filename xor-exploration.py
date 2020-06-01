@@ -28,9 +28,9 @@ def main():
     wrong_words = [(i, word_dict[i]["_suggestedWordString"])
                    for i in word_dict if word_dict[i].get("_suggestedWordString", "") != i]
 
-    print(f'len(words)')
-    print(f'len(known_words)')
-    print(f'len(wrong_words)')
+    print(f'{len(words)=}')
+    print(f'{len(known_words)=}')
+    print(f'{len(wrong_words)=}')
 
 
 if __name__ == '__main__':
