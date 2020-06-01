@@ -1,0 +1,8 @@
+name: heavens-vault-dictionary
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - pytest
+  - pylint
+  - autopep8
