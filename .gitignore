@@ -5,6 +5,12 @@ heavensVaultSave.json
 decrypted_heavensVaultSave.json
 
 
+## IDE files
+
+# Visual Studio Code configuration
+.vscode/
+
+
 ## GitHub Python gitignore template
 
 # Byte-compiled / optimized / DLL files
