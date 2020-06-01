@@ -1,3 +1,12 @@
+## Project-specific files
+
+# inputs and outputs
+heavensVaultSave.json
+decrypted_heavensVaultSave.json
+
+
+## GitHub Python gitignore template
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
