@@ -2,7 +2,14 @@ import json
 import sys
 
 
+''' xor-key for decrypting the save file '''
 KEY = ord('a')
+
+''' headers for valid save files '''
+HEADERS = {
+    b'HV\x01\xb6\x87\x4d': 'encrypted',
+    b')7\x60\xd7\xe6\x2c': 'decrypted',
+}
 
 
 def xorfile(input, output="", prefix="decrypted_"):
