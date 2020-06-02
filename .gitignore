@@ -1,8 +1,7 @@
 ## Project-specific files
 
 # inputs and outputs
-heavensVaultSave.json
-decrypted_heavensVaultSave.json
+*heavensVaultSave.json
 
 
 ## GitHub Python gitignore template
