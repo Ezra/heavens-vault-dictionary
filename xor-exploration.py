@@ -23,14 +23,14 @@ KEY = ord('a')
 HEADERS = {
     b'HV\x01\xb6\x87\x4d': 'encrypted',
     b')7\x60\xd7\xe6\x2c': 'decrypted',
-}
+    }
 
 
 def xorfile(input, output="", prefix="decrypted_"):
     if input.startswith(prefix):
         output = input[len(prefix):]
     else:
-        output = prefix+input
+        output = prefix + input
     with open(output, 'wb') as fd_out:
         with open(input, 'rb') as fd_in:
             byte = fd_in.read(1)
