@@ -31,31 +31,31 @@ def xorfile(input, output="", prefix="decrypted_"):
         output = input[len(prefix):]
     else:
         output = prefix+input
-    with open(output, 'wb') as f:
-        with open(input, 'rb') as g:
-            byte = g.read(1)
+    with open(output, 'wb') as fd_out:
+        with open(input, 'rb') as fd_in:
+            byte = fd_in.read(1)
             while len(byte) == 1:
-                f.write(bytes([ord(byte) ^ KEY]))
-                byte = g.read(1)
+                fd_out.write(bytes([ord(byte) ^ KEY]))
+                byte = fd_in.read(1)
 
 
 def main():
     xorfile("heavensVaultSave.json")
 
-    with open("decrypted_heavensVaultSave.json", "r") as f:
-        f.read(6)
-        lines = [l.strip() for l in f]
-    j = json.loads(lines[6])
-    word_dict = j["player"]["lexDictionary"]["_lexDictionary"]
-    words = list(word_dict.keys())
+    with open("decrypted_heavensVaultSave.json", "r") as fd_data:
+        fd_data.read(6)
+        lines = [line.strip() for line in fd_data]
+    game_state = json.loads(lines[6])
+    dictionary = game_state["player"]["lexDictionary"]["_lexDictionary"]
+    words = list(dictionary.keys())
     known_words = [
-        i for i in word_dict
-        if word_dict[i].get("known", False)
+        word for word in dictionary
+        if dictionary[word].get("known", False)
         ]
     wrong_words = [
-        (i, word_dict[i]["_suggestedWordString"])
-        for i in word_dict
-        if word_dict[i].get("_suggestedWordString", "") != i
+        (word, dictionary[word]["_suggestedWordString"])
+        for word in dictionary
+        if dictionary[word].get("_suggestedWordString", "") != word
         ]
 
     print(f'{len(words)=}')
