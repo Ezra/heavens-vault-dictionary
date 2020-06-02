@@ -1,5 +1,5 @@
 import json
-import os
+from pathlib import Path
 import sys
 
 
@@ -27,18 +27,19 @@ HEADERS = {
     }
 
 
-def xorfile(input, output="", prefix="decrypted_"):
-    if input.startswith(prefix):
-        output = input[len(prefix):]
+def xorfile(infile: Path, outfile="", prefix="decrypted_"):
+    if infile.name.startswith(prefix):
+        outfile = infile.with_name(infile.name[len(prefix):])
     else:
-        output = prefix + input
-    with open(output, 'wb') as fd_out:
-        with open(input, 'rb') as fd_in:
+        outfile = infile.with_name(prefix + infile.name)
+
+    with open(outfile, 'wb') as fd_out:
+        with open(infile, 'rb') as fd_in:
             byte = fd_in.read(1)
             while len(byte) == 1:
                 fd_out.write(bytes([ord(byte) ^ KEY]))
                 byte = fd_in.read(1)
-    return output
+    return outfile
 
 
 def main():
