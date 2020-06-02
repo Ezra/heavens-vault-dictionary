@@ -8,6 +8,6 @@ dependencies:
   - flake8
   - ipdb
   - ipython
-  - pylint
   - pytest
+  - pytest-cov
   - rope
