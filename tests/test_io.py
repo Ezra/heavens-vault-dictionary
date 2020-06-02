@@ -1,17 +1,22 @@
-from xor_exploration import xorfile
-import unittest
+from overrides import overrides
 from pathlib import Path
+import unittest
+
+from xor_exploration import xorfile
 
 
 class Test_Encryption(unittest.TestCase):
+    @overrides  # (unittest.TestCase)
     def setUp(self):
         self.data_path = Path.cwd() / 'tests' / 'data'
         self.encrypted_input_path = self.data_path / 'save1.json'
         self.decrypted_input_path = self.data_path / 'decrypted_save2.json'
         self.encrypted_output_path = (
-            self.data_path / 'save2.json')
+            self.data_path / 'save2.json'
+            )
         self.decrypted_output_path = (
-            self.data_path / 'decrypted_save1.json')
+            self.data_path / 'decrypted_save1.json'
+            )
 
     def test_encrypt_filename_path(self):
         encrypted = xorfile(self.decrypted_input_path)
