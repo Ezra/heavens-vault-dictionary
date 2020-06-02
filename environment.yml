@@ -3,6 +3,11 @@ channels:
   - defaults
 dependencies:
   - python=3.8
-  - pytest
-  - pylint
   - autopep8
+  - coverage
+  - flake8
+  - ipdb
+  - ipython
+  - pylint
+  - pytest
+  - rope
