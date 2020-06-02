@@ -2,6 +2,20 @@ import json
 import sys
 
 
+# File format:
+# Six-byte header. Constant. By inspection you can tell
+#       whether the xor encryption has been applied.
+# line 0 (JSON): file format info (format version number)
+# blank line
+# line 2 (JSON): originating software (Heaven's Vault, version number)
+# blank line
+# line 4 (JSON): save file description
+# blank line
+# line 6 (JSON): major state (most of the useful info, over half the file)
+# blank line
+# line 8 (JSON): execution status
+#       (huge lists of minor trivia, most of the rest of the file)
+
 ''' xor-key for decrypting the save file '''
 KEY = ord('a')
 
