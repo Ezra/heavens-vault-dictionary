@@ -18,6 +18,14 @@ class Test_Encryption(unittest.TestCase):
             self.data_path / 'decrypted_save1.json'
             )
 
+    @overrides  # (unittest.TestCase)
+    def tearDown(self):
+        for output_path in [
+                self.decrypted_output_path,
+                self.encrypted_output_path,
+                ]:
+            output_path.unlink(missing_ok=True)
+
     def test_encrypt_filename_path(self):
         encrypted = xorfile(self.decrypted_input_path)
         self.assertEqual(encrypted, self.encrypted_output_path)
