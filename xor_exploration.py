@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 
 
@@ -37,6 +38,7 @@ def xorfile(input, output="", prefix="decrypted_"):
             while len(byte) == 1:
                 fd_out.write(bytes([ord(byte) ^ KEY]))
                 byte = fd_in.read(1)
+    return output
 
 
 def main():
