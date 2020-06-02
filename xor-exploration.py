@@ -2,6 +2,9 @@ import json
 import sys
 
 
+KEY = ord('a')
+
+
 def xorfile(input, output="", prefix="decrypted_"):
     if input.startswith(prefix):
         output = input[len(prefix):]
@@ -11,7 +14,7 @@ def xorfile(input, output="", prefix="decrypted_"):
         with open(input, 'rb') as g:
             byte = g.read(1)
             while len(byte) == 1:
-                f.write(bytes([ord(byte) ^ 97]))
+                f.write(bytes([ord(byte) ^ KEY]))
                 byte = g.read(1)
 
 
