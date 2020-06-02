@@ -1,6 +1,7 @@
 name: heavens-vault-dictionary
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python=3.8
   - autopep8
@@ -8,6 +9,7 @@ dependencies:
   - flake8
   - ipdb
   - ipython
+  - overrides
   - pytest
   - pytest-cov
   - rope
