@@ -48,9 +48,15 @@ def main():
     j = json.loads(lines[6])
     word_dict = j["player"]["lexDictionary"]["_lexDictionary"]
     words = list(word_dict.keys())
-    known_words = [i for i in word_dict if word_dict[i].get("known", False)]
-    wrong_words = [(i, word_dict[i]["_suggestedWordString"])
-                   for i in word_dict if word_dict[i].get("_suggestedWordString", "") != i]
+    known_words = [
+        i for i in word_dict
+        if word_dict[i].get("known", False)
+        ]
+    wrong_words = [
+        (i, word_dict[i]["_suggestedWordString"])
+        for i in word_dict
+        if word_dict[i].get("_suggestedWordString", "") != i
+        ]
 
     print(f'{len(words)=}')
     print(f'{len(known_words)=}')
