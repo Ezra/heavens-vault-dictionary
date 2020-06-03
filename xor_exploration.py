@@ -27,11 +27,19 @@ HEADERS = {
     }
 
 
-def xorfile(infile: Path, outfile="", prefix="decrypted_"):
-    if infile.name.startswith(prefix):
-        outfile = infile.with_name(infile.name[len(prefix):])
+def toggle_prefix(text, prefix, /):
+    if text.startswith(prefix):
+        # 3.8: slice off prefix
+        # 3.9: removeprefix()
+        result = text[len(prefix):]
     else:
-        outfile = infile.with_name(prefix + infile.name)
+        result = prefix + text
+    return result
+
+
+def xorfile(infile: Path, outfile="", prefix="decrypted_"):
+    if not outfile:
+        outfile = infile.with_name(toggle_prefix(infile.name, prefix))
 
     with open(outfile, 'wb') as fd_out:
         with open(infile, 'rb') as fd_in:
