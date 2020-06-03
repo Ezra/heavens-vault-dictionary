@@ -43,18 +43,22 @@ def xorfile(infile: Path, outfile="", prefix="decrypted_"):
 
 
 def main():
-    xorfile("heavensVaultSave.json")
+    infile = Path("heavensVaultSave.json")
+    outfile = xorfile(infile)
 
-    with open("decrypted_heavensVaultSave.json", "r") as fd_data:
+    with open(outfile, "r") as fd_data:
         fd_data.read(6)
         lines = [line.strip() for line in fd_data]
+
     game_state = json.loads(lines[6])
     dictionary = game_state["player"]["lexDictionary"]["_lexDictionary"]
+
     words = list(dictionary.keys())
     known_words = [
         word for word in dictionary
-        if dictionary[word].get("known", False)
+        if dictionary[word].get("known", None)
         ]
+
     wrong_words = [
         (word, dictionary[word]["_suggestedWordString"])
         for word in dictionary
