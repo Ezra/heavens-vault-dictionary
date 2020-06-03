@@ -3,7 +3,8 @@ from pathlib import Path
 import unittest
 
 from myio.myio import auto_open
-from xor_exploration import toggle_prefix, xorfile
+from myio.util import toggle_prefix
+from xor_exploration import xorfile
 
 
 class Test_AutoOpen(unittest.TestCase):

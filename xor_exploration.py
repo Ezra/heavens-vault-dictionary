@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 
 from myio.myio import auto_open
+from myio.util import toggle_prefix
 
 
 # File format:
@@ -27,19 +28,6 @@ HEADERS = {
     b'HV\x01\xb6\x87\x4d': 'encrypted',
     b')7\x60\xd7\xe6\x2c': 'decrypted',
     }
-
-
-def toggle_prefix(text, prefix):
-    ''' If the string starts with the prefix,
-    remove it. Otherwise, insert it.
-    '''
-    if text.startswith(prefix):
-        # 3.8: slice off prefix
-        # 3.9: removeprefix()
-        result = text[len(prefix):]
-    else:
-        result = prefix + text
-    return result
 
 
 @auto_open('infile', mode='rb')
