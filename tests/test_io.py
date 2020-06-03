@@ -3,7 +3,7 @@ from pathlib import Path
 import unittest
 
 from myio.myio import auto_make_open
-from xor_exploration import xorfile
+from xor_exploration import toggle_prefix, xorfile
 
 
 class Test_AutoOpen(unittest.TestCase):
@@ -81,3 +81,17 @@ class Test_Encryption(unittest.TestCase):
     def test_decrypt_filename(self):
         decrypted = xorfile(self.encrypted_input_path)
         self.assertEqual(decrypted, self.decrypted_output_path)
+
+
+class Test_StringHandling(unittest.TestCase):
+    def test_idempotency(self):
+        text = 'lazy bat'
+        prefix = 'lab'
+        modified_text = toggle_prefix(toggle_prefix(text, prefix), prefix)
+        self.assertEqual(modified_text, text)
+
+    def test_potency(self):
+        text = 'lazy bat'
+        prefix = 'lab'
+        modified_text = toggle_prefix(text, prefix), prefix
+        self.assertNotEqual(modified_text, text)
