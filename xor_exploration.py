@@ -2,6 +2,8 @@ import json
 from pathlib import Path
 import sys
 
+from myio.myio import auto_make_open
+
 
 # File format:
 # Six-byte header. Constant. By inspection you can tell
@@ -37,17 +39,21 @@ def toggle_prefix(text, prefix, /):
     return result
 
 
+@auto_make_open('infile', mode='rb')
+@auto_make_open('outfile', mode='wb')
+def _xorfile(infile, outfile, prefix):
+    byte = infile.read(1)
+    while len(byte) == 1:
+        outfile.write(bytes([ord(byte) ^ KEY]))
+        byte = infile.read(1)
+    return outfile.name
+
+
 def xorfile(infile: Path, outfile="", prefix="decrypted_"):
     if not outfile:
         outfile = infile.with_name(toggle_prefix(infile.name, prefix))
 
-    with open(outfile, 'wb') as fd_out:
-        with open(infile, 'rb') as fd_in:
-            byte = fd_in.read(1)
-            while len(byte) == 1:
-                fd_out.write(bytes([ord(byte) ^ KEY]))
-                byte = fd_in.read(1)
-    return outfile
+    return Path(_xorfile(infile=infile, outfile=outfile, prefix=prefix))
 
 
 def main():
