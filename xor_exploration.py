@@ -49,7 +49,8 @@ def _xorfile(infile, outfile, prefix):
     return outfile.name
 
 
-def xorfile(infile: Path, outfile="", prefix="decrypted_"):
+def xorfile(infile, outfile="", prefix="decrypted_"):
+    infile = Path(infile)
     if not outfile:
         outfile = infile.with_name(toggle_prefix(infile.name, prefix))
 
@@ -57,8 +58,7 @@ def xorfile(infile: Path, outfile="", prefix="decrypted_"):
 
 
 def main():
-    infile = Path("heavensVaultSave.json")
-    outfile = xorfile(infile)
+    outfile = xorfile("heavensVaultSave.json")
 
     with open(outfile, "r") as fd_data:
         fd_data.read(6)
