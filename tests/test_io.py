@@ -7,26 +7,32 @@ from xor_exploration import xorfile
 
 
 class Test_AutoOpen(unittest.TestCase):
+    ''' test the make_open and auto_make_open features from myio '''
+    @overrides
+    def setUp(self):
+        self.file1 = Path('file1.txt')
+        self.file2 = Path('file2.txt')
+
     def test_auto_open(self):
 
         @auto_make_open('outfile', mode='w')
         def save_type(outfile):
             print(f'{type(outfile)=}', file=outfile)
-            print(f'wrote to {outfile.name}')
+            return f'wrote to {outfile.name}'
 
         @auto_make_open('infile', mode='r')
         def label_contents(label, infile):
             return label + ': ' + infile.read().strip()
 
-        save_type(outfile='file1.txt')
+        save_type(outfile=self.file1)
 
-        with open('file2.txt', mode='w') as f:
+        with open(self.file2, mode='w') as f:
             save_type(outfile=f)
 
-        with open('file1.txt') as f:
+        with open(self.file1) as f:
             result1 = label_contents('first file', infile=f)
 
-        result2 = label_contents('second file', infile='file2.txt')
+        result2 = label_contents('second file', infile=self.file2)
 
         self.assertEqual(
             result1,
@@ -40,13 +46,14 @@ class Test_AutoOpen(unittest.TestCase):
     @overrides
     def tearDown(self):
         for output_path in [
-                Path('file1.txt'),
-                Path('file2.txt'),
+                self.file1,
+                self.file2,
                 ]:
             output_path.unlink(missing_ok=True)
 
 
 class Test_Encryption(unittest.TestCase):
+    ''' test the path handling and data munging of xorfile '''
     @overrides
     def setUp(self):
         self.data_path = Path.cwd() / 'tests' / 'data'
