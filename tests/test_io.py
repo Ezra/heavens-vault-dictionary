@@ -2,7 +2,7 @@ from overrides import overrides
 from pathlib import Path
 import unittest
 
-from myio.myio import auto_make_open
+from myio.myio import auto_open
 from xor_exploration import toggle_prefix, xorfile
 
 
@@ -15,12 +15,12 @@ class Test_AutoOpen(unittest.TestCase):
 
     def test_auto_open(self):
 
-        @auto_make_open('outfile', mode='w')
+        @auto_open('outfile', mode='w')
         def save_type(outfile):
             print(f'{type(outfile)=}', file=outfile)
             return f'wrote to {outfile.name}'
 
-        @auto_make_open('infile', mode='r')
+        @auto_open('infile', mode='r')
         def label_contents(label, infile):
             return label + ': ' + infile.read().strip()
 

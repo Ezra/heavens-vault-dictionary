@@ -3,7 +3,7 @@ import contextlib
 
 
 @contextlib.contextmanager
-def make_open(path_or_file, mode='r'):
+def ensure_open(path_or_file, mode='r'):
     """ For a file or a pathlike, yield an open file.
     If it's not yet open, the mode will be honored.
     If it is open and the mode doesn't match,
@@ -23,7 +23,7 @@ def make_open(path_or_file, mode='r'):
             file_to_close.close()
 
 
-def auto_make_open(kwarg_name, mode='r'):
+def auto_open(kwarg_name, mode='r'):
     """ Decorator to open a pathlike as a file, if one is passed
     where a file object is expected.
 
@@ -37,7 +37,7 @@ def auto_make_open(kwarg_name, mode='r'):
 
     def decorator(func):
         def wrapper(*args, **kwargs):
-            with make_open(kwargs[kwarg_name], mode) as f:
+            with ensure_open(kwargs[kwarg_name], mode) as f:
                 kwargs[kwarg_name] = f
                 result = func(*args, **kwargs)
             return result

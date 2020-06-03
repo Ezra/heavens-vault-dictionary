@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 import sys
 
-from myio.myio import auto_make_open
+from myio.myio import auto_open
 
 
 # File format:
@@ -42,8 +42,8 @@ def toggle_prefix(text, prefix):
     return result
 
 
-@auto_make_open('infile', mode='rb')
-@auto_make_open('outfile', mode='wb')
+@auto_open('infile', mode='rb')
+@auto_open('outfile', mode='wb')
 def _xorfile(infile, outfile, prefix):
     byte = infile.read(1)
     while len(byte) == 1:
