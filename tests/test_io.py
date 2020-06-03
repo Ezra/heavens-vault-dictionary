@@ -33,7 +33,3 @@ class Test_Encryption(unittest.TestCase):
     def test_decrypt_filename(self):
         decrypted = xorfile(self.encrypted_input_path)
         self.assertEqual(decrypted, self.decrypted_output_path)
-
-
-if __name__ == '__main__':
-    unittest.main()
